@@ -1,15 +1,26 @@
 local wezterm = require 'wezterm'
  
 return {
+  -- 기본 설정
   default_prog = { "pwsh.exe", "-NoLogo" },
- 
+  use_ime = true,
+  ime_preedit_rendering = "Builtin",
+
+  -- 탭 설정
+  enable_tab_bar = true,
+  hide_tab_bar_if_only_one_tab = false,
+
+  -- 폰트 설정 (글자 크기, 글꼴 패밀리)
+  font_size = 12.0,
+  font = wezterm.font_with_fallback {
+    "D2CodingLigature Nerd Font Mono",
+    "D2Coding ligature",                 
+  },
+  
   launch_menu = {
     { label = "PowerShell 7", args = { "pwsh.exe", "-NoLogo" } },
     { label = "Ubuntu (WSL)", args = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" } },
   },
- 
-  enable_tab_bar = true,
-  hide_tab_bar_if_only_one_tab = false,
  
   keys = {
     -- ──────────────────────────────────────────
@@ -134,6 +145,4 @@ return {
       action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor "Clipboard",
     },
   },
- 
-  font_size = 12.0,
 }
