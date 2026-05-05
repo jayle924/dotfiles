@@ -1,3 +1,3 @@
 [windows]
-- 설정 파일 위치
-- C:\Users\{USER]\.wezterm.lua
+경로) %USERPROFILE%\.wezterm.lua
+예) C:\Users\사용자명\.wezterm.lua
