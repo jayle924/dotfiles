@@ -48,13 +48,13 @@ return {
     -- ──────────────────────────────────────────
     -- 수평 분할 (좌/우)
     {
-      key = "h",
+      key = "%",
       mods = "CTRL|SHIFT",
       action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" },
     },
     -- 수직 분할 (상/하)
     {
-      key = "v",
+      key = '"',
       mods = "CTRL|SHIFT",
       action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" },
     },
