@@ -1,3 +1,12 @@
 [windows]
-경로) %USERPROFILE%\.wezterm.lua
-예) C:\Users\사용자명\.wezterm.lua 
+
+경로) C:\Users\사용자명\.wezterm.lua
+
+#PowerShell
+cp .wezterm.lua $env:USERPROFILE\.wezterm.lua
+
+#cmd
+copy .wezterm.lua %USERPROFILE%\.wezterm.lua
+
+#PowerShell + cmd
+Copy-Item .wezterm.lua "$env:USERPROFILE\.wezterm.lua"

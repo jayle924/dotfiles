@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "mhutchie.git-graph",
+        "github.vscode-github-actions",
+        "ms-ceintl.vscode-language-pack-ko",
+        "pkief.material-icon-theme",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "redhat.vscode-yaml"
+    ]
+}
