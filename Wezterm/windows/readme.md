@@ -7,6 +7,3 @@ cp .wezterm.lua $env:USERPROFILE\.wezterm.lua
 
 #cmd  
 copy .wezterm.lua %USERPROFILE%\.wezterm.lua
-
-#PowerShell + cmd  
-Copy-Item .wezterm.lua "$env:USERPROFILE\.wezterm.lua"
