@@ -1,41 +1,32 @@
 local wezterm = require 'wezterm'
 
--- ──────────────────────────────────────────
--- 시스템 환경(pwsh, wsl) 감지 및 메뉴 구성
--- ──────────────────────────────────────────
-
--- 1. 명령어 존재 여부 확인 함수
 local function has_command(cmd)
     return os.execute("where " .. cmd .. " >nul 2>nul") == 0
 end
 
--- 2. 기본값 세팅 (둘 다 없을 때의 Fallback)
-local default_prog = { "cmd.exe" }
-local initial_launch_menu = {
-    { label = "Command Prompt", args = { "cmd.exe" } },
-}
+local has_pwsh = has_command("pwsh.exe")
+local has_wsl  = has_command("wsl.exe")
 
--- 3. 조건별 메뉴 조립
--- [조건 1] pwsh.exe가 있으면 기본 프로그램을 pwsh로 변경하고 메뉴 최상단에 추가
-if has_command("pwsh.exe") then
-    default_prog = { "pwsh.exe", "-NoLogo" }
-    table.insert(initial_launch_menu, 1, { label = "PowerShell 7", args = { "pwsh.exe", "-NoLogo" } })
+local default_prog = has_pwsh
+    and { "pwsh.exe", "-NoLogo" }
+    or  { "cmd.exe" }
+
+local launch_menu = {}
+
+if has_pwsh then
+    table.insert(launch_menu, { label = "PowerShell 7", args = { "pwsh.exe", "-NoLogo" } })
+else
+    table.insert(launch_menu, { label = "Command Prompt", args = { "cmd.exe" } })
 end
 
--- [조건 2] wsl.exe가 있으면 메뉴의 두 번째(혹은 마지막) 항목으로 추가
-if has_command("wsl.exe") then
-    -- pwsh가 있어서 메뉴가 2개가 된 상태면 2번째 자리에 삽입, cmd만 있으면 그 뒤(2번째)에 삽입
-    local insert_index = #initial_launch_menu == 2 and 2 or 2
-    table.insert(initial_launch_menu, insert_index, {
-        label = "Ubuntu (WSL)",
-        args = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" }
-    })
+if has_wsl then
+    table.insert(launch_menu, { label = "Ubuntu (WSL)", args = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" } })
 end
 
 return {
     -- 감지된 결과에 따라 동적으로 설정 적용
     default_prog = default_prog,
-    launch_menu = initial_launch_menu,
+    launch_menu = launch_menu,
 
     use_ime = true,
     ime_preedit_rendering = "Builtin",
