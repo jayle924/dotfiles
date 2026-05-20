@@ -1,7 +1,8 @@
 local wezterm = require 'wezterm'
 
 local function has_command(cmd)
-    return os.execute("where " .. cmd .. " >nul 2>nul") == 0
+    local success, stdout, _ = wezterm.run_child_process({ "where", cmd })
+    return success and stdout ~= ""
 end
 
 local has_pwsh = has_command("pwsh.exe")
